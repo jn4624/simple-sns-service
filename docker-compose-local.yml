@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  simple-sns-service-database:
+    container_name: simple-sns-service-database
+    build:
+      dockerfile: Dockerfile
+      context: ./database
+    image: jnlim/simple-sns-service-database
+    environment:
+      - POSTGRES_DATABASE=simple-sns
+      - POSTGRES_USER=${SPRING_DATASOURCE_USERNAME}
+      - POSTGRES_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+    ports:
+      - "5432:5432"
