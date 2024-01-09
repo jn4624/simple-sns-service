@@ -14,7 +14,7 @@ import java.time.Instant;
 @Getter
 @Entity
 @Table(name = "\"user\"")
-@SQLDelete(sql = "UPDATED \"user\" SET deleted_at = NOW() where id = ?")
+@SQLDelete(sql = "UPDATE \"user\" SET deleted_at = NOW() where id = ?")
 @Where(clause = "deleted_at IS NULL")
 public class UserEntity {
     @Id
