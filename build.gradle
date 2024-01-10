@@ -64,3 +64,5 @@ copyFrontEnd.dependsOn npmBuild
 compileJava.dependsOn copyFrontEnd
 
 clean.dependsOn cleanFrontEnd
+
+bootRun.dependsOn npmBuild
