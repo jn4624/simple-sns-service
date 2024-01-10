@@ -1,7 +1,6 @@
 package com.simple.app.controller.response;
 
 import com.simple.app.model.Post;
-import com.simple.app.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
