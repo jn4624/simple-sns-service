@@ -169,7 +169,7 @@ public class PostControllerTest {
 
     @Test
     @WithMockUser
-    void 피드_목록_요청_성공한경우() throws Exception {
+    void 피드_목록_요청_성공한_경우() throws Exception {
         // mocking
         when(postService.list(any())).thenReturn(Page.empty());
 
@@ -193,7 +193,7 @@ public class PostControllerTest {
 
     @Test
     @WithMockUser
-    void 나의_피드_목록_요청_성공한경우() throws Exception {
+    void 나의_피드_목록_요청_성공한_경우() throws Exception {
         // mocking
         when(postService.my(any(), any())).thenReturn(Page.empty());
 
@@ -213,5 +213,55 @@ public class PostControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                 ).andDo(print())
                 .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    @WithMockUser
+    void 좋아요_요청_성공한_경우() throws Exception {
+        mockMvc.perform(post("/api/v1/posts/1/likes")
+                        .contentType(MediaType.APPLICATION_JSON)
+                ).andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithAnonymousUser
+    void 로그인하지_않은_사용자가_좋아요_요청하는_경우() throws Exception {
+        mockMvc.perform(post("/api/v1/posts/1/likes")
+                        .contentType(MediaType.APPLICATION_JSON)
+                ).andDo(print())
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    @WithMockUser
+    void 좋아요하려는_포스트가_존재하지_않는_경우() throws Exception {
+        // mocking
+        doThrow(new SimpleSnsApplicationException(ErrorCode.POST_NOT_FOUND)).when(postService).like(any(), any());
+
+        mockMvc.perform(post("/api/v1/posts/1/likes")
+                        .contentType(MediaType.APPLICATION_JSON)
+                ).andDo(print())
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    @WithMockUser
+    void 좋아요_갯수_요청_성공한_경우() throws Exception {
+        mockMvc.perform(get("/api/v1/posts/1/likes")
+                .contentType(MediaType.APPLICATION_JSON)
+        ).andDo(print())
+        .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser
+    void 좋아요_갯수_요청_실패한_경우() throws Exception {
+        doThrow(new SimpleSnsApplicationException(ErrorCode.POST_NOT_FOUND)).when(postService).likeCount(any());
+
+        mockMvc.perform(get("/api/v1/posts/1/likes")
+                        .contentType(MediaType.APPLICATION_JSON)
+                ).andDo(print())
+                .andExpect(status().isNotFound());
     }
 }
