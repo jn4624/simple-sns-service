@@ -1,2 +1,41 @@
+### get likes
 GET http://localhost:8080/api/v1/posts/2/likes
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6InRlc3QwMyIsImlhdCI6MTcwNDgwMTUwNiwiZXhwIjoxNzA3MzkzNTA2fQ.ejv5JzUw10DnbKFgFEOhvI8ScRdnpjtHhqbVviCY7jU
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6InRlc3QwMiIsImlhdCI6MTcwNTI4NTI4NCwiZXhwIjoxNzA3ODc3Mjg0fQ.9r_UguQeBzBrquWlZrNaU8OhHfcu3xHSNEuOyBv-Mwg
+Content-Type: application/json
+
+### post likes
+POST http://localhost:8080/api/v1/posts/2/likes
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6InRlc3QwMiIsImlhdCI6MTcwNTI4NTI4NCwiZXhwIjoxNzA3ODc3Mjg0fQ.9r_UguQeBzBrquWlZrNaU8OhHfcu3xHSNEuOyBv-Mwg
+Content-Type: application/json
+
+### get comments
+GET http://localhost:8080/api/v1/posts/2/comments
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6InRlc3QwMiIsImlhdCI6MTcwNTI4NTI4NCwiZXhwIjoxNzA3ODc3Mjg0fQ.9r_UguQeBzBrquWlZrNaU8OhHfcu3xHSNEuOyBv-Mwg
+Content-Type: application/json
+
+### post comments
+POST http://localhost:8080/api/v1/posts/2/comments
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6InRlc3QwMiIsImlhdCI6MTcwNTI4NTI4NCwiZXhwIjoxNzA3ODc3Mjg0fQ.9r_UguQeBzBrquWlZrNaU8OhHfcu3xHSNEuOyBv-Mwg
+Content-Type: application/json
+
+{
+  "comment": "this is comment"
+}
+
+### post join
+POST http://localhost:8080/api/v1/users/join
+Content-Type: application/json
+
+{
+  "name": "admin",
+  "password": "admin"
+}
+
+### post login
+POST http://localhost:8080/api/v1/users/login
+Content-Type: application/json
+
+{
+  "name": "test02",
+  "password": "test02"
+}

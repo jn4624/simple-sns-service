@@ -233,4 +233,45 @@ public class PostServiceTest {
         SimpleSnsApplicationException e = Assertions.assertThrows(SimpleSnsApplicationException.class, () -> postService.likeCount(1));
         Assertions.assertEquals(ErrorCode.POST_NOT_FOUND, e.getErrorCode());
     }
+
+    @Test
+    void 댓글_작성이_성공한_경우() {
+        String userName = "userName";
+        Integer postId = 1;
+        Integer userId = 1;
+
+        PostEntity postEntity = PostEntityFixture.get(userName, postId, userId);
+        UserEntity userEntity = postEntity.getUser();
+
+        when(postEntityRepository.findById(any())).thenReturn(Optional.of(postEntity));
+        when(userEntityRepository.findByUserName(any())).thenReturn(Optional.of(userEntity));
+
+        Assertions.assertDoesNotThrow(() -> postService.comment(postId, "comment", userName));
+    }
+
+    @Test
+    void 로그인하지_않은_사용자가_댓글을_작성하는_경우() {
+        String userName = "userName";
+        Integer postId = 1;
+        Integer userId = 1;
+
+        PostEntity postEntity = PostEntityFixture.get(userName, postId, userId);
+
+        when(postEntityRepository.findById(any())).thenReturn(Optional.of(postEntity));
+        when(userEntityRepository.findByUserName(any())).thenReturn(Optional.empty());
+
+        SimpleSnsApplicationException e = Assertions.assertThrows(SimpleSnsApplicationException.class, () -> postService.comment(postId, "comment", userName));
+        Assertions.assertEquals(ErrorCode.USER_NOT_FOUND, e.getErrorCode());
+    }
+
+    @Test
+    void 댓글_작성시_포스트가_존재하지_않는_경우() {
+        String userName = "userName";
+        Integer postId = 1;
+
+        when(postEntityRepository.findById(any())).thenReturn(Optional.empty());
+
+        SimpleSnsApplicationException e = Assertions.assertThrows(SimpleSnsApplicationException.class, () -> postService.comment(postId, "comment", userName));
+        Assertions.assertEquals(ErrorCode.POST_NOT_FOUND, e.getErrorCode());
+    }
 }

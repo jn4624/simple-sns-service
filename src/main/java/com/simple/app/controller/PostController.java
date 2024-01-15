@@ -1,7 +1,9 @@
 package com.simple.app.controller;
 
+import com.simple.app.controller.request.PostCommentRequest;
 import com.simple.app.controller.request.PostCreateRequest;
 import com.simple.app.controller.request.PostModifyRequest;
+import com.simple.app.controller.response.CommentResponse;
 import com.simple.app.controller.response.PostResponse;
 import com.simple.app.controller.response.Response;
 import com.simple.app.model.Post;
@@ -55,5 +57,16 @@ public class PostController {
     @GetMapping("/{postId}/likes")
     public Response<Integer> likeCount(@PathVariable Integer postId, Authentication authentication) {
         return Response.success(postService.likeCount(postId));
+    }
+
+    @PostMapping("/{postId}/comments")
+    public Response<Void> comment(@PathVariable Integer postId, @RequestBody PostCommentRequest postCommentRequest, Authentication authentication) {
+        postService.comment(postId, postCommentRequest.getComment(), authentication.getName());
+        return Response.success();
+    }
+
+    @GetMapping("/{postId}/comments")
+    public Response<Page<CommentResponse>> commentList(@PathVariable Integer postId, Pageable pageable, Authentication authentication) {
+        return Response.success(postService.commentList(postId, pageable).map(CommentResponse::fromComment));
     }
 }
