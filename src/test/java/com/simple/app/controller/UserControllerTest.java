@@ -15,7 +15,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithAnonymousUser;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -109,7 +108,6 @@ public class UserControllerTest {
     }
 
     @Test
-    @WithMockUser
     void 알람기능_요청이_성공한_경우() throws Exception {
         when(userService.alarmList(any(), any())).thenReturn(Page.empty());
 

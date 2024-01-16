@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class Alarm {
     private Integer id;
-    private User user;
+//    private User user;
     private AlarmType alarmType;
     private AlarmArgs alarmArgs;
     private Timestamp registeredAt;
@@ -20,7 +20,7 @@ public class Alarm {
     public static Alarm fromEntity(AlarmEntity alarmEntity) {
         return new Alarm(
                 alarmEntity.getId(),
-                User.fromEntity(alarmEntity.getUser()),
+//                User.fromEntity(alarmEntity.getUser()),
                 alarmEntity.getAlarmType(),
                 alarmEntity.getAlarmArgs(),
                 alarmEntity.getRegisteredAt(),

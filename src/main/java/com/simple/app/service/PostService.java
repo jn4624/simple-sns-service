@@ -47,6 +47,19 @@ public class PostService {
         return Post.fromEntity(postEntityRepository.saveAndFlush(postEntity));
     }
 
+//    @Transactional
+//    public void delete(String userName, Integer postId) {
+//        UserEntity userEntity = getUserEntityOrException(userName);
+//        PostEntity postEntity = getPostEntityOrException(postId);
+//
+//        // post permission
+//        if (postEntity.getUser() != userEntity) {
+//            throw new SimpleSnsApplicationException(ErrorCode.INVALID_PERMISSION, String.format("%s has no permission with %d", userName, postId));
+//        }
+//
+//        postEntityRepository.delete(postEntity);
+//    }
+
     @Transactional
     public void delete(String userName, Integer postId) {
         UserEntity userEntity = getUserEntityOrException(userName);
@@ -57,6 +70,8 @@ public class PostService {
             throw new SimpleSnsApplicationException(ErrorCode.INVALID_PERMISSION, String.format("%s has no permission with %d", userName, postId));
         }
 
+        likeEntityRepository.deleteAllByPost(postEntity);
+        commentEntityRepository.deleteAllByPost(postEntity);
         postEntityRepository.delete(postEntity);
     }
 
@@ -86,7 +101,12 @@ public class PostService {
         alarmEntityRepository.save(AlarmEntity.of(postEntity.getUser(), AlarmType.NEW_LIKE_ON_POST, new AlarmArgs(userEntity.getId(), postEntity.getId())));
     }
 
-    public int likeCount(Integer postId) {
+//    public int likeCount(Integer postId) {
+//        PostEntity postEntity = getPostEntityOrException(postId);
+//        return likeEntityRepository.countByPost(postEntity);
+//    }
+
+    public long likeCount(Integer postId) {
         PostEntity postEntity = getPostEntityOrException(postId);
         return likeEntityRepository.countByPost(postEntity);
     }

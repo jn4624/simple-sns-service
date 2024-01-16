@@ -1,55 +1,39 @@
 ### get likes
 GET http://localhost:8080/api/v1/posts/2/likes
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6InRlc3QwMiIsImlhdCI6MTcwNTI4NTI4NCwiZXhwIjoxNzA3ODc3Mjg0fQ.9r_UguQeBzBrquWlZrNaU8OhHfcu3xHSNEuOyBv-Mwg
-Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6ImFkbWluIiwiaWF0IjoxNzA1MzgwMDY2LCJleHAiOjE3MDc5NzIwNjZ9.XDsbr4dYSRSj_uAT7EmLxVg6k_JEQD51K9uxGMf7jGk
 
 ### post likes
-POST http://localhost:8080/api/v1/posts/1/likes
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6ImFkbWluIiwiaWF0IjoxNzA1MzA3MTc2LCJleHAiOjE3MDc4OTkxNzZ9.7UCY5-doyb9Vi1xNXu_E9Q64qdjE2qujo_PXtQPPFoI
+POST http://localhost:8080/api/v1/posts/2/likes
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6InJheWluZm8iLCJpYXQiOjE3MDUzODAyMzEsImV4cCI6MTcwNzk3MjIzMX0.QB5ndf9GoSzOIvfDx5_rAwhEE8-uEcuPdtRPSPZm09Q
 Content-Type: application/json
 
 ### get comments
-GET http://localhost:8080/api/v1/posts/1/comments
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6ImFkbWluIiwiaWF0IjoxNzA1MzAyMDY0LCJleHAiOjE3MDc4OTQwNjR9.ZXSnsiogEhcuIEbV6F8C_m3mAX50fHECydlqqyWTFSk
-Content-Type: application/json
+GET http://localhost:8080/api/v1/posts/2/comments
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6ImFkbWluIiwiaWF0IjoxNzA1MzgwMDY2LCJleHAiOjE3MDc5NzIwNjZ9.XDsbr4dYSRSj_uAT7EmLxVg6k_JEQD51K9uxGMf7jGk
 
 ### post comments
-POST http://localhost:8080/api/v1/posts/1/comments
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6InJheWluZm8iLCJpYXQiOjE3MDUzMDg3MDgsImV4cCI6MTcwNzkwMDcwOH0.kpwSxOXxqtQaQTfagW68y5OITxVhsUC6SEDGZvSq7d0
+POST http://localhost:8080/api/v1/posts/2/comments
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6InJheWluZm8iLCJpYXQiOjE3MDUzODAyMzEsImV4cCI6MTcwNzk3MjIzMX0.QB5ndf9GoSzOIvfDx5_rAwhEE8-uEcuPdtRPSPZm09Q
 Content-Type: application/json
 
 {
   "comment": "This is rayinfo comment"
 }
 
-### get alarm
-GET http://localhost:8080/api/v1/users/alarm
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6ImFkbWluIiwiaWF0IjoxNzA1MzY5NjE5LCJleHAiOjE3MDc5NjE2MTl9.uNU7L5xbmYni5IkDWOYteRbPjgd9K7VjYM-WxO8cwog
+### get posts
+GET http://localhost:8080/api/v1/posts
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6ImFkbWluIiwiaWF0IjoxNzA1MzgwMDY2LCJleHAiOjE3MDc5NzIwNjZ9.XDsbr4dYSRSj_uAT7EmLxVg6k_JEQD51K9uxGMf7jGk
 
 ### post posts
 POST http://localhost:8080/api/v1/posts
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6ImFkbWluIiwiaWF0IjoxNzA1MzA4NjMzLCJleHAiOjE3MDc5MDA2MzN9.nBki9atN8_azScf6OlLE2Rsy7H_-hYLOb0Xa7S5UfUo
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6ImFkbWluIiwiaWF0IjoxNzA1MzgwMDY2LCJleHAiOjE3MDc5NzIwNjZ9.XDsbr4dYSRSj_uAT7EmLxVg6k_JEQD51K9uxGMf7jGk
 Content-Type: application/json
 
 {
-  "title": "This is admin title",
-  "body": "this is admin body"
+  "title": "This is admin title1",
+  "body": "this is admin body1"
 }
 
-### post join
-POST http://localhost:8080/api/v1/users/join
-Content-Type: application/json
-
-{
-  "name": "rayinfo",
-  "password": "rayinfo"
-}
-
-### post login
-POST http://localhost:8080/api/v1/users/login
-Content-Type: application/json
-
-{
-  "name": "admin",
-  "password": "admin"
-}
+### delete posts
+DELETE http://localhost:8080/api/v1/posts/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6ImFkbWluIiwiaWF0IjoxNzA1MzgwMDY2LCJleHAiOjE3MDc5NzIwNjZ9.XDsbr4dYSRSj_uAT7EmLxVg6k_JEQD51K9uxGMf7jGk
