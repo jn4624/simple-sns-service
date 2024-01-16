@@ -2,16 +2,12 @@ package com.simple.app.service;
 
 import com.simple.app.exception.ErrorCode;
 import com.simple.app.exception.SimpleSnsApplicationException;
+import com.simple.app.model.AlarmArgs;
+import com.simple.app.model.AlarmType;
 import com.simple.app.model.Comment;
 import com.simple.app.model.Post;
-import com.simple.app.model.entity.CommentEntity;
-import com.simple.app.model.entity.LikeEntity;
-import com.simple.app.model.entity.PostEntity;
-import com.simple.app.model.entity.UserEntity;
-import com.simple.app.repository.CommentRepository;
-import com.simple.app.repository.LikeEntityRepository;
-import com.simple.app.repository.PostEntityRepository;
-import com.simple.app.repository.UserEntityRepository;
+import com.simple.app.model.entity.*;
+import com.simple.app.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +20,8 @@ public class PostService {
     private final PostEntityRepository postEntityRepository;
     private final UserEntityRepository userEntityRepository;
     private final LikeEntityRepository likeEntityRepository;
-    private final CommentRepository commentRepository;
+    private final CommentEntityRepository commentEntityRepository;
+    private final AlarmEntityRepository alarmEntityRepository;
 
     @Transactional
     public void create(String title, String body, String userName) {
@@ -84,6 +81,9 @@ public class PostService {
 
         // like save
         likeEntityRepository.save(LikeEntity.of(userEntity, postEntity));
+
+        // alarm save
+        alarmEntityRepository.save(AlarmEntity.of(postEntity.getUser(), AlarmType.NEW_LIKE_ON_POST, new AlarmArgs(userEntity.getId(), postEntity.getId())));
     }
 
     public int likeCount(Integer postId) {
@@ -97,12 +97,15 @@ public class PostService {
         UserEntity userEntity = getUserEntityOrException(userName);
 
         // comment save
-        commentRepository.save(CommentEntity.of(userEntity, postEntity, comment));
+        commentEntityRepository.save(CommentEntity.of(userEntity, postEntity, comment));
+
+        // alarm save
+        alarmEntityRepository.save(AlarmEntity.of(postEntity.getUser(), AlarmType.NEW_COMMENT_ON_POST, new AlarmArgs(userEntity.getId(), postEntity.getId())));
     }
 
     public Page<Comment> commentList(Integer postId, Pageable pageable) {
         PostEntity postEntity = getPostEntityOrException(postId);
-        return commentRepository.findAllByPost(postEntity, pageable).map(Comment::fromEntity);
+        return commentEntityRepository.findAllByPost(postEntity, pageable).map(Comment::fromEntity);
     }
 
     private PostEntity getPostEntityOrException(Integer postId) {

@@ -107,7 +107,7 @@ function Alarm() {
                 <Grid container>
                   <Grid item xs={12}>
                     <MDTypography fontWeight="bold" variant="body2">
-                      {alarm.text}
+                      {alarm.alarmText}
                     </MDTypography>
                   </Grid>
                   </Grid>

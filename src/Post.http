@@ -4,22 +4,36 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6InRlc3QwMiIsImlhdCI6M
 Content-Type: application/json
 
 ### post likes
-POST http://localhost:8080/api/v1/posts/2/likes
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6InRlc3QwMiIsImlhdCI6MTcwNTI4NTI4NCwiZXhwIjoxNzA3ODc3Mjg0fQ.9r_UguQeBzBrquWlZrNaU8OhHfcu3xHSNEuOyBv-Mwg
+POST http://localhost:8080/api/v1/posts/1/likes
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6ImFkbWluIiwiaWF0IjoxNzA1MzA3MTc2LCJleHAiOjE3MDc4OTkxNzZ9.7UCY5-doyb9Vi1xNXu_E9Q64qdjE2qujo_PXtQPPFoI
 Content-Type: application/json
 
 ### get comments
-GET http://localhost:8080/api/v1/posts/2/comments
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6InRlc3QwMiIsImlhdCI6MTcwNTI4NTI4NCwiZXhwIjoxNzA3ODc3Mjg0fQ.9r_UguQeBzBrquWlZrNaU8OhHfcu3xHSNEuOyBv-Mwg
+GET http://localhost:8080/api/v1/posts/1/comments
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6ImFkbWluIiwiaWF0IjoxNzA1MzAyMDY0LCJleHAiOjE3MDc4OTQwNjR9.ZXSnsiogEhcuIEbV6F8C_m3mAX50fHECydlqqyWTFSk
 Content-Type: application/json
 
 ### post comments
-POST http://localhost:8080/api/v1/posts/2/comments
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6InRlc3QwMiIsImlhdCI6MTcwNTI4NTI4NCwiZXhwIjoxNzA3ODc3Mjg0fQ.9r_UguQeBzBrquWlZrNaU8OhHfcu3xHSNEuOyBv-Mwg
+POST http://localhost:8080/api/v1/posts/1/comments
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6InJheWluZm8iLCJpYXQiOjE3MDUzMDg3MDgsImV4cCI6MTcwNzkwMDcwOH0.kpwSxOXxqtQaQTfagW68y5OITxVhsUC6SEDGZvSq7d0
 Content-Type: application/json
 
 {
-  "comment": "this is comment"
+  "comment": "This is rayinfo comment"
+}
+
+### get alarm
+GET http://localhost:8080/api/v1/users/alarm
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6ImFkbWluIiwiaWF0IjoxNzA1MzY5NjE5LCJleHAiOjE3MDc5NjE2MTl9.uNU7L5xbmYni5IkDWOYteRbPjgd9K7VjYM-WxO8cwog
+
+### post posts
+POST http://localhost:8080/api/v1/posts
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6ImFkbWluIiwiaWF0IjoxNzA1MzA4NjMzLCJleHAiOjE3MDc5MDA2MzN9.nBki9atN8_azScf6OlLE2Rsy7H_-hYLOb0Xa7S5UfUo
+Content-Type: application/json
+
+{
+  "title": "This is admin title",
+  "body": "this is admin body"
 }
 
 ### post join
@@ -27,8 +41,8 @@ POST http://localhost:8080/api/v1/users/join
 Content-Type: application/json
 
 {
-  "name": "admin",
-  "password": "admin"
+  "name": "rayinfo",
+  "password": "rayinfo"
 }
 
 ### post login
@@ -36,6 +50,6 @@ POST http://localhost:8080/api/v1/users/login
 Content-Type: application/json
 
 {
-  "name": "test02",
-  "password": "test02"
+  "name": "admin",
+  "password": "admin"
 }

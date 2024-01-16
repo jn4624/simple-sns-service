@@ -238,7 +238,7 @@ public class PostServiceTest {
     void 댓글_작성이_성공한_경우() {
         String userName = "userName";
         Integer postId = 1;
-        Integer userId = 1;
+        Integer userId = 2;
 
         PostEntity postEntity = PostEntityFixture.get(userName, postId, userId);
         UserEntity userEntity = postEntity.getUser();

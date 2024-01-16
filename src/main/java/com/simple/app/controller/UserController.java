@@ -2,16 +2,17 @@ package com.simple.app.controller;
 
 import com.simple.app.controller.request.UserJoinRequest;
 import com.simple.app.controller.request.UserLoginRequest;
+import com.simple.app.controller.response.AlarmResponse;
 import com.simple.app.controller.response.Response;
 import com.simple.app.controller.response.UserJoinResponse;
 import com.simple.app.controller.response.UserLoginResponse;
 import com.simple.app.model.User;
 import com.simple.app.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -25,9 +26,14 @@ public class UserController {
         return Response.success(UserJoinResponse.fromUser(user));
     }
 
-    @PostMapping("login")
+    @PostMapping("/login")
     public Response<UserLoginResponse> login(@RequestBody UserLoginRequest userLoginRequest) {
         String token = userService.login(userLoginRequest.getName(), userLoginRequest.getPassword());
         return Response.success(new UserLoginResponse(token));
+    }
+
+    @GetMapping("/alarm")
+    public Response<Page<AlarmResponse>> alarm(Pageable pageable, Authentication authentication) {
+        return Response.success(userService.alarmList(authentication.getName(), pageable).map(AlarmResponse::fromAlarm));
     }
 }
