@@ -3,8 +3,8 @@ GET http://localhost:8080/api/v1/posts/2/likes
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6ImFkbWluIiwiaWF0IjoxNzA1MzgwMDY2LCJleHAiOjE3MDc5NzIwNjZ9.XDsbr4dYSRSj_uAT7EmLxVg6k_JEQD51K9uxGMf7jGk
 
 ### post likes
-POST http://localhost:8080/api/v1/posts/2/likes
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6InJheWluZm8iLCJpYXQiOjE3MDUzODAyMzEsImV4cCI6MTcwNzk3MjIzMX0.QB5ndf9GoSzOIvfDx5_rAwhEE8-uEcuPdtRPSPZm09Q
+POST http://localhost:8080/api/v1/posts/1/likes
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6InJheWluZm8iLCJpYXQiOjE3MDU0Njg1MjksImV4cCI6MTcwODA2MDUyOX0.rjMlitzkQ_d1fZtVx4rtMpzcneHE9Oq5Cbho8kopXQQ
 Content-Type: application/json
 
 ### get comments
@@ -12,12 +12,12 @@ GET http://localhost:8080/api/v1/posts/2/comments
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6ImFkbWluIiwiaWF0IjoxNzA1MzgwMDY2LCJleHAiOjE3MDc5NzIwNjZ9.XDsbr4dYSRSj_uAT7EmLxVg6k_JEQD51K9uxGMf7jGk
 
 ### post comments
-POST http://localhost:8080/api/v1/posts/2/comments
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6InJheWluZm8iLCJpYXQiOjE3MDUzODAyMzEsImV4cCI6MTcwNzk3MjIzMX0.QB5ndf9GoSzOIvfDx5_rAwhEE8-uEcuPdtRPSPZm09Q
+POST http://localhost:8080/api/v1/posts/1/comments
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6InJheWluZm8iLCJpYXQiOjE3MDU0Njg1MjksImV4cCI6MTcwODA2MDUyOX0.rjMlitzkQ_d1fZtVx4rtMpzcneHE9Oq5Cbho8kopXQQ
 Content-Type: application/json
 
 {
-  "comment": "This is rayinfo comment"
+  "comment": "sseEmitter test comment"
 }
 
 ### get posts

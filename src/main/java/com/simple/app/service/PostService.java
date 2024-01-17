@@ -23,6 +23,8 @@ public class PostService {
     private final CommentEntityRepository commentEntityRepository;
     private final AlarmEntityRepository alarmEntityRepository;
 
+    private final AlarmService alarmService;
+
     @Transactional
     public void create(String title, String body, String userName) {
         UserEntity userEntity = getUserEntityOrException(userName);
@@ -46,19 +48,6 @@ public class PostService {
 
         return Post.fromEntity(postEntityRepository.saveAndFlush(postEntity));
     }
-
-//    @Transactional
-//    public void delete(String userName, Integer postId) {
-//        UserEntity userEntity = getUserEntityOrException(userName);
-//        PostEntity postEntity = getPostEntityOrException(postId);
-//
-//        // post permission
-//        if (postEntity.getUser() != userEntity) {
-//            throw new SimpleSnsApplicationException(ErrorCode.INVALID_PERMISSION, String.format("%s has no permission with %d", userName, postId));
-//        }
-//
-//        postEntityRepository.delete(postEntity);
-//    }
 
     @Transactional
     public void delete(String userName, Integer postId) {
@@ -98,13 +87,11 @@ public class PostService {
         likeEntityRepository.save(LikeEntity.of(userEntity, postEntity));
 
         // alarm save
-        alarmEntityRepository.save(AlarmEntity.of(postEntity.getUser(), AlarmType.NEW_LIKE_ON_POST, new AlarmArgs(userEntity.getId(), postEntity.getId())));
-    }
+        AlarmEntity alarmEntity = alarmEntityRepository.save(AlarmEntity.of(postEntity.getUser(), AlarmType.NEW_LIKE_ON_POST, new AlarmArgs(userEntity.getId(), postEntity.getId())));
 
-//    public int likeCount(Integer postId) {
-//        PostEntity postEntity = getPostEntityOrException(postId);
-//        return likeEntityRepository.countByPost(postEntity);
-//    }
+        // sseEmitter
+        alarmService.send(alarmEntity.getId(), postEntity.getUser().getId());
+    }
 
     public long likeCount(Integer postId) {
         PostEntity postEntity = getPostEntityOrException(postId);
@@ -120,7 +107,10 @@ public class PostService {
         commentEntityRepository.save(CommentEntity.of(userEntity, postEntity, comment));
 
         // alarm save
-        alarmEntityRepository.save(AlarmEntity.of(postEntity.getUser(), AlarmType.NEW_COMMENT_ON_POST, new AlarmArgs(userEntity.getId(), postEntity.getId())));
+        AlarmEntity alarmEntity = alarmEntityRepository.save(AlarmEntity.of(postEntity.getUser(), AlarmType.NEW_COMMENT_ON_POST, new AlarmArgs(userEntity.getId(), postEntity.getId())));
+
+        // sseEmitter
+        alarmService.send(alarmEntity.getId(), postEntity.getUser().getId());
     }
 
     public Page<Comment> commentList(Integer postId, Pageable pageable) {
