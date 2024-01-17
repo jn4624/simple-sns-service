@@ -13,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -108,10 +109,12 @@ public class UserControllerTest {
     }
 
     @Test
+    @WithCustomUser
     void 알람기능_요청이_성공한_경우() throws Exception {
         when(userService.alarmList(any(), any())).thenReturn(Page.empty());
 
         mockMvc.perform(get("/api/v1/users/alarm")
+                        .header(HttpHeaders.AUTHORIZATION, "bearer {ACCESS_TOKEN}")
                         .contentType(MediaType.APPLICATION_JSON)
                 ).andDo(print())
                 .andExpect(status().isOk());

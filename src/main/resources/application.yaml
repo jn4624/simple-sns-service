@@ -17,6 +17,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  redis:
+    url: ${redis.url}
 
 jwt:
   secret-key: com.simple.app.simple-sns-service-2024.secret_key

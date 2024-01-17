@@ -12,3 +12,11 @@ services:
       - POSTGRES_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
     ports:
       - "5432:5432"
+  simple-sns-service-redis:
+    container_name: simple-sns-service-redis
+    build:
+      dockerfile: Dockerfile
+      context: ./redis
+    image: jnlim/simple-sns-service-redis
+    ports:
+      - "6379:6379"
