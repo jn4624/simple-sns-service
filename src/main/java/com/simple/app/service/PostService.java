@@ -6,8 +6,16 @@ import com.simple.app.model.AlarmArgs;
 import com.simple.app.model.AlarmType;
 import com.simple.app.model.Comment;
 import com.simple.app.model.Post;
-import com.simple.app.model.entity.*;
-import com.simple.app.repository.*;
+import com.simple.app.model.entity.CommentEntity;
+import com.simple.app.model.entity.LikeEntity;
+import com.simple.app.model.entity.PostEntity;
+import com.simple.app.model.entity.UserEntity;
+import com.simple.app.model.event.AlarmEvent;
+import com.simple.app.producer.AlarmProducer;
+import com.simple.app.repository.CommentEntityRepository;
+import com.simple.app.repository.LikeEntityRepository;
+import com.simple.app.repository.PostEntityRepository;
+import com.simple.app.repository.UserEntityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,9 +29,8 @@ public class PostService {
     private final UserEntityRepository userEntityRepository;
     private final LikeEntityRepository likeEntityRepository;
     private final CommentEntityRepository commentEntityRepository;
-    private final AlarmEntityRepository alarmEntityRepository;
 
-    private final AlarmService alarmService;
+    private final AlarmProducer alarmProducer;
 
     @Transactional
     public void create(String title, String body, String userName) {
@@ -86,11 +93,8 @@ public class PostService {
         // like save
         likeEntityRepository.save(LikeEntity.of(userEntity, postEntity));
 
-        // alarm save
-        AlarmEntity alarmEntity = alarmEntityRepository.save(AlarmEntity.of(postEntity.getUser(), AlarmType.NEW_LIKE_ON_POST, new AlarmArgs(userEntity.getId(), postEntity.getId())));
-
-        // sseEmitter
-        alarmService.send(alarmEntity.getId(), postEntity.getUser().getId());
+        // kafka
+        alarmProducer.send(new AlarmEvent(postEntity.getUser().getId(), AlarmType.NEW_LIKE_ON_POST, new AlarmArgs(userEntity.getId(), postEntity.getId())));
     }
 
     public long likeCount(Integer postId) {
@@ -106,11 +110,8 @@ public class PostService {
         // comment save
         commentEntityRepository.save(CommentEntity.of(userEntity, postEntity, comment));
 
-        // alarm save
-        AlarmEntity alarmEntity = alarmEntityRepository.save(AlarmEntity.of(postEntity.getUser(), AlarmType.NEW_COMMENT_ON_POST, new AlarmArgs(userEntity.getId(), postEntity.getId())));
-
-        // sseEmitter
-        alarmService.send(alarmEntity.getId(), postEntity.getUser().getId());
+        // kafka
+        alarmProducer.send(new AlarmEvent(postEntity.getUser().getId(), AlarmType.NEW_COMMENT_ON_POST, new AlarmArgs(userEntity.getId(), postEntity.getId())));
     }
 
     public Page<Comment> commentList(Integer postId, Pageable pageable) {

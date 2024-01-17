@@ -4,7 +4,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6ImFkbWluIiwiaWF0IjoxN
 
 ### post likes
 POST http://localhost:8080/api/v1/posts/1/likes
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6InJheWluZm8iLCJpYXQiOjE3MDU0Njg1MjksImV4cCI6MTcwODA2MDUyOX0.rjMlitzkQ_d1fZtVx4rtMpzcneHE9Oq5Cbho8kopXQQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6ImpubGltIiwiaWF0IjoxNzA1NDc3MzkyLCJleHAiOjE3MDgwNjkzOTJ9.kmYghy39tc9_FY88m6j7EZtbInYjTlOeGVGyu2_n3ow
 Content-Type: application/json
 
 ### get comments
@@ -13,7 +13,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6ImFkbWluIiwiaWF0IjoxN
 
 ### post comments
 POST http://localhost:8080/api/v1/posts/1/comments
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6InJheWluZm8iLCJpYXQiOjE3MDU0Njg1MjksImV4cCI6MTcwODA2MDUyOX0.rjMlitzkQ_d1fZtVx4rtMpzcneHE9Oq5Cbho8kopXQQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6ImpubGltIiwiaWF0IjoxNzA1NDc3MzkyLCJleHAiOjE3MDgwNjkzOTJ9.kmYghy39tc9_FY88m6j7EZtbInYjTlOeGVGyu2_n3ow
 Content-Type: application/json
 
 {

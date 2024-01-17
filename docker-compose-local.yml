@@ -20,3 +20,24 @@ services:
     image: jnlim/simple-sns-service-redis
     ports:
       - "6379:6379"
+  simple-sns-service-zookeeper:
+    container_name: simple-sns-service-zookeeper
+    build:
+      dockerfile: Dockerfile
+      context: ./zookeeper
+    image: jnlim/simple-sns-service-zookeeper
+    ports:
+      - "2181:2181"
+  simple-sns-service-kafka:
+    container_name: simple-sns-service-kafka
+    build:
+      dockerfile: Dockerfile
+      context: ./kafka
+    image: jnlim/simple-sns-service-kafka
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+      KAFKA_ZOOKEEPER_CONNECT: simple-sns-service-zookeeper:2181
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "9092:9092"

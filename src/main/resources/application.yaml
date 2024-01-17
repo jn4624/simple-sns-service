@@ -19,6 +19,26 @@ spring:
         format_sql: true
   redis:
     url: ${redis.url}
+  kafka:
+    consumer:
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: "*"
+      bootstrap-servers: ${kafka.consumer.bootstrap-servers}
+      group-id: alarm
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.IntegerDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+    listener:
+      ack-mode: MANUAL
+    producer:
+      bootstrap-servers: ${kafka.producer.bootstrap-servers}
+      key-serializer: org.apache.kafka.common.serialization.IntegerSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    topic:
+      alarm: simple-sns-topic
 
 jwt:
   secret-key: com.simple.app.simple-sns-service-2024.secret_key
